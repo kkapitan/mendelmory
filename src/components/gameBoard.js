@@ -1,4 +1,5 @@
-import PeriodicBoard from "./periodicBoard";
+import { PeriodicBoard } from "./periodicBoard";
+import { PeriodicElementState } from "./periodicElement";
 import React from "react";
 
 const shuffle = array => {
@@ -7,6 +8,19 @@ const shuffle = array => {
     [array[i], array[j]] = [array[j], array[i]];
   }
   return array;
+};
+
+const initialBoardState = periodicTable => {
+  const boardState = [];
+  const numberOfPeriods = periodicTable.length;
+  const numberOfGroups = periodicTable[0].length;
+
+  for (let periodIdx = 0; periodIdx < numberOfPeriods; periodIdx++) {
+    boardState[periodIdx] = new Array(numberOfGroups);
+    boardState[periodIdx].fill(PeriodicElementState.HIDDEN);
+  }
+
+  return boardState;
 };
 
 export default class GameBoard extends React.Component {
@@ -18,36 +32,70 @@ export default class GameBoard extends React.Component {
     this.state = {
       elements,
       score: 0,
+      boardState: initialBoardState(periodicTable),
       maxScore: allElements.length,
       finished: false
     };
   }
 
-  onElementSelected(element, correct) {
+  onElementSelected(periodIdx, groupIdx) {
+    const periodicTable = this.props.periodicTable;
+    const boardState = this.state.boardState;
     const elements = this.state.elements;
-    const score = this.state.score + (correct ? 1 : 0);
 
+    const element = periodicTable[periodIdx][groupIdx];
+
+    const elementState =
+      element.symbol === this.currentElement().symbol
+        ? PeriodicElementState.CORRECT
+        : PeriodicElementState.INCORRECT;
+
+    const correct = elementState === PeriodicElementState.CORRECT;
+    const score = this.state.score + (correct ? 1 : 0);
     const finished = elements.length === 1;
+
+    boardState[periodIdx][groupIdx] = elementState;
 
     if (!finished) {
       elements.splice(elements.indexOf(element), 1);
     }
 
-    this.setState({ score, finished, elements });
+    this.setState({ score, finished, elements, boardState });
   }
 
   currentElement() {
     return this.state.elements[0];
   }
 
-  skipOne() {
-    const elements = this.state.elements;
-    elements.splice(elements.indexOf(this.currentElement), 1);
+  skipOne(e) {
+    e.preventDefault();
 
-    this.setState({ elements });
+    const currentElement = this.currentElement();
+    const elements = this.state.elements;
+    const boardState = this.state.boardState;
+    const periodicTable = this.props.periodicTable;
+    const finished = elements.length === 1;
+
+    if (!finished) {
+      elements.splice(elements.indexOf(currentElement), 1);
+    }
+
+    const numberOfPeriods = periodicTable.length;
+    const numberOfGroups = periodicTable[0].length;
+    for (let periodIdx = 0; periodIdx < numberOfPeriods; periodIdx++) {
+      for (let groupIdx = 0; groupIdx < numberOfGroups; groupIdx++) {
+        const element = periodicTable[periodIdx][groupIdx];
+        if (element && element.symbol === currentElement.symbol) {
+          boardState[periodIdx][groupIdx] = PeriodicElementState.INCORRECT;
+        }
+      }
+    }
+
+    this.setState({ finished, elements, boardState });
   }
 
-  nextOne() {
+  nextOne(e) {
+    e.preventDefault();
     const elements = shuffle(this.state.elements);
     this.setState({ elements });
   }
@@ -58,6 +106,7 @@ export default class GameBoard extends React.Component {
         <div className="game-periodic-container">
           <PeriodicBoard
             periodicTable={this.props.periodicTable}
+            boardState={this.state.boardState}
             currentElement={this.currentElement()}
             onElementSelected={this.onElementSelected.bind(this)}
           />
@@ -70,16 +119,10 @@ export default class GameBoard extends React.Component {
                 {this.currentElement().name}
               </p>
             </div>
-            <div
-              className="game-action-button"
-              onClick={this.nextOne.bind(this)}
-            >
+            <div className="game-action-button" onClick={e => this.nextOne(e)}>
               <p>Losuj następne</p>
             </div>
-            <div
-              className="game-action-button"
-              onClick={this.skipOne.bind(this)}
-            >
+            <div className="game-action-button" onClick={e => this.skipOne(e)}>
               <p>Pomiń obecne</p>
             </div>
           </div>
