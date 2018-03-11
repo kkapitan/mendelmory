@@ -40,7 +40,10 @@ export default class PeriodicBoard extends React.Component {
         : PeriodicElementState.INCORRECT;
 
     boardState[periodIdx][groupIdx] = elementState;
-    this.props.onElementSelected(elementState);
+    this.props.onElementSelected(
+      element,
+      elementState === PeriodicElementState.CORRECT
+    );
 
     this.setState({ boardState });
   }

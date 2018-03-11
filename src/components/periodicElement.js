@@ -29,18 +29,20 @@ const visibilityForState = state => {
 };
 
 export const PeriodicElement = ({ symbol, name, state, onClick }) => {
-  const containerClass =
-    "periodic-element periodic-element-filled " + classNameForState(state);
+  const baseContainerClass = "periodic-element periodic-element-filled ";
+  const containerClass = baseContainerClass + classNameForState(state);
 
-  const showContents = visibilityForState(state);
+  const visible = visibilityForState(state);
+  const visibilityClass = visible
+    ? "periodic-element-visible"
+    : "periodic-element-hidden";
+
   return (
-    <div className={containerClass} onClick={e => onClick(e)}>
-      {showContents && (
-        <div>
-          <p className="periodic-element-symbol">{symbol}</p>
-          <p className="periodic-element-name">{name}</p>
-        </div>
-      )}
+    <div className={containerClass} onClick={e => !visible && onClick(e)}>
+      <div className={visibilityClass}>
+        <p className="periodic-element-symbol">{symbol}</p>
+        <p className="periodic-element-name">{name}</p>
+      </div>
     </div>
   );
 };

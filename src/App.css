@@ -2,9 +2,13 @@
   text-align: center;
 }
 
+/* Periodic table */
+
 .periodic-table {
   display: flex;
+  flex: 3;
   flex-direction: column;
+  background-color: navajowhite;
 }
 
 .periodic-table-period {
@@ -29,10 +33,55 @@
   background-color: red;
 }
 
+.periodic-element-hidden {
+  visibility: hidden;
+}
+
 .periodic-element-symbol {
   font-size: 11px;
 }
 
 .periodic-element-name {
   font-size: 10px;
+}
+
+/* Game board */
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  background-color: goldenrod;
+}
+
+.game-periodic-container {
+  display: flex;
+  background-color: goldenrod;
+  align-items: center;
+}
+
+.game-current-element-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  height: 200px;
+  background-color: greenyellow;
+}
+
+.game-current-element {
+  border: 1px solid black;
+  padding: 10px;
+  width: 100px;
+}
+
+.game-current-element-symbol {
+  font-size: 40px;
+}
+.game-current-element-name {
+  font-size: 20px;
+}
+
+/* Score */
+
+.game-score {
+  font-size: 60px;
 }
