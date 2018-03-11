@@ -1,0 +1,38 @@
+.App {
+  text-align: center;
+}
+
+.periodic-table {
+  display: flex;
+  flex-direction: column;
+}
+
+.periodic-table-period {
+  display: flex;
+  flex-direction: row;
+}
+
+.periodic-element-filled {
+  border: 1px solid black;
+}
+
+.periodic-element {
+  flex: 1;
+  margin: 1px;
+}
+
+.periodic-element-correct {
+  background-color: green;
+}
+
+.periodic-element-incorrect {
+  background-color: red;
+}
+
+.periodic-element-symbol {
+  font-size: 11px;
+}
+
+.periodic-element-name {
+  font-size: 10px;
+}
