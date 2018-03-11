@@ -23,6 +23,8 @@
 .periodic-element {
   flex: 1;
   margin: 1px;
+  flex-basis: auto;
+  min-width: 50px;
 }
 
 .periodic-element-correct {
@@ -50,6 +52,7 @@
 .game-container {
   display: flex;
   flex-direction: column;
+  padding: 10px;
   /* background-color: goldenrod; */
 }
 
@@ -64,6 +67,7 @@
   display: flex;
   justify-content: center;
   height: 200px;
+  padding: 10px;
   /* background-color: greenyellow; */
 }
 
