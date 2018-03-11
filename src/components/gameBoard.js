@@ -40,6 +40,18 @@ export default class GameBoard extends React.Component {
     return this.state.elements[0];
   }
 
+  skipOne() {
+    const elements = this.state.elements;
+    elements.splice(elements.indexOf(this.currentElement), 1);
+
+    this.setState({ elements });
+  }
+
+  nextOne() {
+    const elements = shuffle(this.state.elements);
+    this.setState({ elements });
+  }
+
   render() {
     return (
       <div className="game-container">
@@ -49,7 +61,7 @@ export default class GameBoard extends React.Component {
             currentElement={this.currentElement()}
             onElementSelected={this.onElementSelected.bind(this)}
           />
-          <div className="game-current-element-container">
+          <div className="game-hud-container">
             <div className="game-current-element">
               <p className="game-current-element-symbol">
                 {this.currentElement().symbol}
@@ -57,6 +69,18 @@ export default class GameBoard extends React.Component {
               <p className="game-current-element-name">
                 {this.currentElement().name}
               </p>
+            </div>
+            <div
+              className="game-action-button"
+              onClick={this.nextOne.bind(this)}
+            >
+              <p>Losuj następne</p>
+            </div>
+            <div
+              className="game-action-button"
+              onClick={this.skipOne.bind(this)}
+            >
+              <p>Pomiń obecne</p>
             </div>
           </div>
         </div>

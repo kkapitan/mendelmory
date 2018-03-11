@@ -62,16 +62,18 @@
   align-items: center;
 }
 
-.game-current-element-container {
+.game-hud-container {
   flex: 1;
   display: flex;
   justify-content: center;
-  height: 200px;
+  flex-direction: column;
   padding: 10px;
   /* background-color: greenyellow; */
+  align-items: center;
 }
 
 .game-current-element {
+  height: 200px;
   border: 1px solid black;
   padding: 10px;
   width: 100px;
@@ -82,6 +84,15 @@
 }
 .game-current-element-name {
   font-size: 20px;
+}
+
+.game-action-button {
+  margin: 5px;
+  padding: 5px 32px;
+  color: white;
+  font-size: 16px;
+  display: inline-block;
+  background-color: #4caf50;
 }
 
 /* Score */
