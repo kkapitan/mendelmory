@@ -8,7 +8,7 @@
   display: flex;
   flex: 3;
   flex-direction: column;
-  background-color: navajowhite;
+  /* background-color: navajowhite; */
 }
 
 .periodic-table-period {
@@ -50,12 +50,12 @@
 .game-container {
   display: flex;
   flex-direction: column;
-  background-color: goldenrod;
+  /* background-color: goldenrod; */
 }
 
 .game-periodic-container {
   display: flex;
-  background-color: goldenrod;
+  /* background-color: goldenrod; */
   align-items: center;
 }
 
@@ -64,7 +64,7 @@
   display: flex;
   justify-content: center;
   height: 200px;
-  background-color: greenyellow;
+  /* background-color: greenyellow; */
 }
 
 .game-current-element {
