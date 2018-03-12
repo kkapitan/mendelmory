@@ -1,5 +1,9 @@
 import React from "react";
-import { PeriodicElement, PeriodicElementEmpty } from "./periodicElement";
+import {
+  PeriodicElement,
+  PeriodicElementEmpty,
+  PeriodicElementHeader
+} from "./periodicElement";
 
 export const PeriodicBoard = ({
   periodicTable,
@@ -17,7 +21,13 @@ export const PeriodicBoard = ({
         return (
           <div className="periodic-table-period" key={periodIdx}>
             {period.map((element, groupIdx) => {
-              if (element) {
+              if (typeof element === "string") {
+                return (
+                  <PeriodicElementHeader header={element} key={groupIdx} />
+                );
+              } else if (typeof element === "undefined") {
+                return <PeriodicElementEmpty key={groupIdx} />;
+              } else {
                 return (
                   <PeriodicElement
                     {...element}
@@ -26,8 +36,6 @@ export const PeriodicBoard = ({
                     key={groupIdx}
                   />
                 );
-              } else {
-                return <PeriodicElementEmpty key={groupIdx} />;
               }
             })}
           </div>

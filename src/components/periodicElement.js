@@ -50,3 +50,11 @@ export const PeriodicElement = ({ symbol, name, state, onClick }) => {
 export const PeriodicElementEmpty = ({}) => {
   return <div className="periodic-element periodic-element-empty" />;
 };
+
+export const PeriodicElementHeader = ({ header }) => {
+  return (
+    <div className="periodic-element periodic-element-header">
+      <p>{header}</p>
+    </div>
+  );
+};

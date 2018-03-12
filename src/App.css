@@ -18,6 +18,11 @@
 
 .periodic-element-filled {
   border: 1px solid black;
+  color: white;
+}
+
+.periodic-element-header {
+  border: 1px solid white;
 }
 
 .periodic-element {
@@ -25,6 +30,11 @@
   margin: 1px;
   flex-basis: auto;
   min-width: 50px;
+}
+
+.periodic-element-empty {
+  border: 1px solid white;
+  visibility: hidden;
 }
 
 .periodic-element-correct {
@@ -41,6 +51,7 @@
 
 .periodic-element-symbol {
   font-size: 11px;
+  font-weight: bold;
 }
 
 .periodic-element-name {
