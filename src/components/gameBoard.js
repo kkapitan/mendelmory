@@ -23,19 +23,23 @@ const initialBoardState = periodicTable => {
   return boardState;
 };
 
+const initialGameState = ({ allElements, periodicTable }) => {
+  const elements = shuffle([...allElements]);
+
+  return {
+    elements,
+    score: 0,
+    boardState: initialBoardState(periodicTable),
+    maxScore: allElements.length,
+    finished: false
+  };
+};
+
 export default class GameBoard extends React.Component {
   constructor({ allElements, periodicTable }) {
     super();
 
-    const elements = shuffle(allElements);
-
-    this.state = {
-      elements,
-      score: 0,
-      boardState: initialBoardState(periodicTable),
-      maxScore: allElements.length,
-      finished: false
-    };
+    this.state = initialGameState({ allElements, periodicTable });
   }
 
   onElementSelected(periodIdx, groupIdx) {
@@ -100,6 +104,12 @@ export default class GameBoard extends React.Component {
     this.setState({ elements });
   }
 
+  restart(e) {
+    e.preventDefault();
+    const initialState = initialGameState(this.props);
+    this.setState(initialState);
+  }
+
   render() {
     return (
       <div className="game-container">
@@ -111,6 +121,11 @@ export default class GameBoard extends React.Component {
             onElementSelected={this.onElementSelected.bind(this)}
           />
           <div className="game-hud-container">
+            <div className="game-score-container">
+              <p className="game-score">
+                {"Punkty: " + this.state.score + "/" + this.state.maxScore}
+              </p>
+            </div>
             <div className="game-current-element">
               <p className="game-current-element-symbol">
                 {this.currentElement().symbol}
@@ -125,14 +140,10 @@ export default class GameBoard extends React.Component {
             <div className="game-action-button" onClick={e => this.skipOne(e)}>
               <p>Pomiń obecne</p>
             </div>
+            <div className="game-action-button" onClick={e => this.restart(e)}>
+              <p>Zacznij od nowa</p>
+            </div>
           </div>
-        </div>
-        <div className="game-score-container">
-          <p className="game-score">
-            {this.state.finished
-              ? "Koniec gry. Odśwież aby rozpocząć ponownie."
-              : "Punkty: " + this.state.score + "/" + this.state.maxScore}
-          </p>
         </div>
       </div>
     );

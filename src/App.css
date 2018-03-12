@@ -8,7 +8,6 @@
   display: flex;
   flex: 3;
   flex-direction: column;
-  /* background-color: navajowhite; */
 }
 
 .periodic-table-period {
@@ -64,12 +63,10 @@
   display: flex;
   flex-direction: column;
   padding: 10px;
-  /* background-color: goldenrod; */
 }
 
 .game-periodic-container {
   display: flex;
-  /* background-color: goldenrod; */
   align-items: center;
 }
 
@@ -79,12 +76,13 @@
   justify-content: center;
   flex-direction: column;
   padding: 10px;
-  /* background-color: greenyellow; */
   align-items: center;
 }
 
+/* Game hud */
+
 .game-current-element {
-  height: 200px;
+  height: 150px;
   border: 1px solid black;
   padding: 10px;
   width: 100px;
@@ -106,8 +104,6 @@
   background-color: #4caf50;
 }
 
-/* Score */
-
 .game-score {
-  font-size: 60px;
+  font-size: 32px;
 }
